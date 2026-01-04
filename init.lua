@@ -152,10 +152,10 @@ vim.o.splitbelow = true
 vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
-vim.o.expandtab = true      -- Tab 转空格
-vim.o.tabstop = 4           -- 一个 Tab 显示为 4 个空格
-vim.o.shiftwidth = 4        -- 自动缩进使用 4 空格
-vim.o.softtabstop = 4       -- 按 Tab 键插入 4 空格
+vim.o.expandtab = true -- Tab 转空格
+vim.o.tabstop = 4 -- 一个 Tab 显示为 4 个空格
+vim.o.shiftwidth = 4 -- 自动缩进使用 4 空格
+vim.o.softtabstop = 4 -- 按 Tab 键插入 4 空格
 
 -- Preview substitutions live, as you type!
 vim.o.inccommand = 'split'
@@ -588,11 +588,7 @@ require('lazy').setup({
           ---@param bufnr? integer some lsp support methods only in specific files
           ---@return boolean
           local function client_supports_method(client, method, bufnr)
-            if vim.fn.has 'nvim-0.11' == 1 then
-              return client:supports_method(method, bufnr)
-            else
-              return client.supports_method(method, { bufnr = bufnr })
-            end
+            return client:supports_method(method, bufnr)
           end
 
           -- The following two autocommands are used to highlight references of the
@@ -752,17 +748,16 @@ require('lazy').setup({
     event = 'VimEnter',
     config = function()
       require('go').setup()
-      vim.api.nvim_create_augroup("GoFormat", {})
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        pattern = "*.go",
+      vim.api.nvim_create_augroup('GoFormat', {})
+      vim.api.nvim_create_autocmd('BufWritePre', {
+        pattern = '*.go',
         callback = function()
           require('go.format').goimports()
         end,
-        group = "GoFormat",
+        group = 'GoFormat',
       })
     end,
   },
-
 
   { -- Autoformat
     'stevearc/conform.nvim',
@@ -1013,8 +1008,6 @@ require('lazy').setup({
   require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
-
-
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
